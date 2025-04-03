@@ -16,7 +16,19 @@ const navLinks = document.querySelector(".nav-links");
 // Mobile Navigation
 burger.addEventListener("click", () => {
   navLinks.classList.toggle("active");
-  burger.classList.toggle("toggle");
+  burger.classList.toggle("active");
+  document.body.style.overflow = navLinks.classList.contains("active")
+    ? "hidden"
+    : "";
+});
+
+// Close mobile menu when clicking on a nav link
+document.querySelectorAll(".nav-links a").forEach((link) => {
+  link.addEventListener("click", () => {
+    navLinks.classList.remove("active");
+    burger.classList.remove("active");
+    document.body.style.overflow = "";
+  });
 });
 
 // Gold Price Chart

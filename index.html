@@ -17,11 +17,10 @@
   </head>
   <body>
     <nav class="navbar">
-      <div class="logo">Gold CFD Trader</div>
+      <a href="#home" class="logo">TradinGolds.com</a>
       <ul class="nav-links">
-        <li><a href="#home">Home</a></li>
         <li><a href="#prices">Live Prices</a></li>
-        <li><a href="#tools">Trading Tools</a></li>
+        <li><a href="#tools">Margin Calculator</a></li>
       </ul>
       <div class="burger">
         <div class="line1"></div>
@@ -34,24 +33,33 @@
       <section id="home" class="section">
         <div class="container">
           <h1>Welcome to Gold CFD Trader Hub</h1>
-          <p>Your daily resource for gold CFD trading tools and insights</p>
-          <div class="quick-links">
-            <a href="#prices" class="btn">Live Prices</a>
-            <a href="#tools" class="btn">Trading Tools</a>
-          </div>
-        </div>
-      </section>
-
-      <section id="prices" class="section">
-        <div class="container">
-          <h2>Live Gold Price</h2>
+          <p id="prices">
+            Your daily resource for gold CFD trading tools and insights
+          </p>
           <div class="price-container">
+            <h2>Live Gold Price</h2>
+            <div class="trade-buttons">
+              <a
+                href="https://mcmarkets.com/en-US/backend/tradeCenter?name=XAUUSD&symbolId=XAUUSD&tradeType=1&handleType=buy"
+                target="_blank"
+                class="btn buy-btn"
+                >Buy Gold</a
+              >
+              <a
+                href="https://mcmarkets.com/en-US/backend/tradeCenter?name=XAUUSD&symbolId=XAUUSD&tradeType=1&handleType=sell"
+                target="_blank"
+                class="btn sell-btn"
+                >Sell Gold</a
+              >
+            </div>
             <div class="current-price">
               <span id="gold-price">Loading...</span>
               <span id="price-change"></span>
+              <div class="price-update-indicator">Live</div>
             </div>
             <div class="chart-container">
               <canvas id="priceChart"></canvas>
+              <div class="chart-update-indicator">Updating</div>
             </div>
           </div>
         </div>
@@ -59,38 +67,99 @@
 
       <section id="tools" class="section">
         <div class="container">
-          <h2>Trading Calculator</h2>
-          <div class="calculator">
-            <div class="input-group">
-              <label for="trade-size">Trade Size (oz)</label>
-              <input
-                type="number"
-                id="trade-size"
-                value="1"
-                min="0.01"
-                step="0.01"
-              />
-            </div>
-            <div class="input-group">
-              <label for="leverage">Leverage</label>
-              <input type="number" id="leverage" value="10" min="1" max="100" />
-            </div>
-            <div class="input-group">
-              <label for="account-currency">Account Currency</label>
-              <select id="account-currency">
-                <option value="USD">USD</option>
-                <option value="EUR">EUR</option>
-                <option value="GBP">GBP</option>
-              </select>
-            </div>
-            <div class="results">
-              <div class="result-item">
-                <span>Margin Required:</span>
-                <span id="margin-required">-</span>
+          <h2>Gold CFD Margin Calculator</h2>
+          <p class="calculator-description">
+            Calculate the required margin and potential profit/loss for your
+            gold CFD trades
+          </p>
+          <div class="calculator-wrapper">
+            <div class="calculator">
+              <div class="calculator-header">
+                <h3>Trade Parameters</h3>
+                <div class="info-tooltip">
+                  <i class="fas fa-info-circle"></i>
+                  <div class="tooltip-content">
+                    <h4>How to use this calculator:</h4>
+                    <ol>
+                      <li>Enter your desired trade size in ounces</li>
+                      <li>Select your preferred leverage ratio</li>
+                      <li>Choose your account currency</li>
+                      <li>View your required margin and potential P/L</li>
+                    </ol>
+                    <p class="note">
+                      Note: The potential P/L is calculated based on a 1% price
+                      movement
+                    </p>
+                  </div>
+                </div>
               </div>
-              <div class="result-item">
-                <span>Potential P/L (1% move):</span>
-                <span id="potential-pl">-</span>
+              <div class="input-group">
+                <label for="trade-size">
+                  Trade Size (oz)
+                  <span class="input-hint"
+                    >Enter the amount of gold you want to trade</span
+                  >
+                </label>
+                <input
+                  type="number"
+                  id="trade-size"
+                  value="1"
+                  min="0.01"
+                  step="0.01"
+                  placeholder="e.g. 1.5"
+                />
+              </div>
+              <div class="input-group">
+                <label for="leverage">
+                  Leverage
+                  <span class="input-hint"
+                    >Choose your leverage ratio (1-100x)</span
+                  >
+                </label>
+                <input
+                  type="number"
+                  id="leverage"
+                  value="10"
+                  min="1"
+                  max="100"
+                  placeholder="e.g. 10"
+                />
+              </div>
+              <div class="input-group">
+                <label for="account-currency">
+                  Account Currency
+                  <span class="input-hint"
+                    >Select your trading account currency</span
+                  >
+                </label>
+                <select id="account-currency">
+                  <option value="USD">USD</option>
+                  <option value="EUR">EUR</option>
+                  <option value="GBP">GBP</option>
+                </select>
+              </div>
+              <div class="results">
+                <div class="result-header">
+                  <h3>Trade Summary</h3>
+                </div>
+                <div class="result-item">
+                  <div class="result-label">
+                    <span>Margin Required</span>
+                    <span class="result-hint"
+                      >Amount needed to open position</span
+                    >
+                  </div>
+                  <span id="margin-required" class="result-value">-</span>
+                </div>
+                <div class="result-item">
+                  <div class="result-label">
+                    <span>Potential P/L (1% move)</span>
+                    <span class="result-hint"
+                      >Profit/loss if price moves 1%</span
+                    >
+                  </div>
+                  <span id="potential-pl" class="result-value">-</span>
+                </div>
               </div>
             </div>
           </div>
@@ -100,8 +169,8 @@
 
     <footer>
       <div class="container">
-        <p>&copy; 2025 Gold CFD Trader Hub</p>
-        <a href="mailto:contact@goldcfdtrader.com">Contact Us</a>
+        <p>&copy; 2025 TradinGolds.com</p>
+        <a href="mailto:edmond.tam@mc900.com">Contact Us</a>
       </div>
     </footer>
 
