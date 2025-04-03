@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Daily tools and articles for gold CFD trading"
+    />
+    <title>Gold CFD Trading Tools for Day Traders</title>
+    <link rel="stylesheet" href="styles.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="logo">Gold CFD Trader</div>
+      <ul class="nav-links">
+        <li><a href="#home">Home</a></li>
+        <li><a href="#prices">Live Prices</a></li>
+        <li><a href="#tools">Trading Tools</a></li>
+      </ul>
+      <div class="burger">
+        <div class="line1"></div>
+        <div class="line2"></div>
+        <div class="line3"></div>
+      </div>
+    </nav>
+
+    <main>
+      <section id="home" class="section">
+        <div class="container">
+          <h1>Welcome to Gold CFD Trader Hub</h1>
+          <p>Your daily resource for gold CFD trading tools and insights</p>
+          <div class="quick-links">
+            <a href="#prices" class="btn">Live Prices</a>
+            <a href="#tools" class="btn">Trading Tools</a>
+          </div>
+        </div>
+      </section>
+
+      <section id="prices" class="section">
+        <div class="container">
+          <h2>Live Gold Price</h2>
+          <div class="price-container">
+            <div class="current-price">
+              <span id="gold-price">Loading...</span>
+              <span id="price-change"></span>
+            </div>
+            <div class="chart-container">
+              <canvas id="priceChart"></canvas>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="tools" class="section">
+        <div class="container">
+          <h2>Trading Calculator</h2>
+          <div class="calculator">
+            <div class="input-group">
+              <label for="trade-size">Trade Size (oz)</label>
+              <input
+                type="number"
+                id="trade-size"
+                value="1"
+                min="0.01"
+                step="0.01"
+              />
+            </div>
+            <div class="input-group">
+              <label for="leverage">Leverage</label>
+              <input type="number" id="leverage" value="10" min="1" max="100" />
+            </div>
+            <div class="input-group">
+              <label for="account-currency">Account Currency</label>
+              <select id="account-currency">
+                <option value="USD">USD</option>
+                <option value="EUR">EUR</option>
+                <option value="GBP">GBP</option>
+              </select>
+            </div>
+            <div class="results">
+              <div class="result-item">
+                <span>Margin Required:</span>
+                <span id="margin-required">-</span>
+              </div>
+              <div class="result-item">
+                <span>Potential P/L (1% move):</span>
+                <span id="potential-pl">-</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer>
+      <div class="container">
+        <p>&copy; 2025 Gold CFD Trader Hub</p>
+        <a href="mailto:contact@goldcfdtrader.com">Contact Us</a>
+      </div>
+    </footer>
+
+    <script src="script.js"></script>
+  </body>
+</html>

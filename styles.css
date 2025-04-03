@@ -1,0 +1,280 @@
+:root {
+  --primary-color: #ffd700;
+  --secondary-color: #1a1a1a;
+  --background-color: #000000;
+  --text-color: #ffffff;
+  --accent-color: #333333;
+  --success-color: #4caf50;
+  --error-color: #f44336;
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background-color: var(--background-color);
+  color: var(--text-color);
+  line-height: 1.4;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Navigation */
+.navbar {
+  background-color: var(--secondary-color);
+  padding: 0.8rem 1.5rem;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: fixed;
+  width: 100%;
+  top: 0;
+  z-index: 1000;
+}
+
+.logo {
+  color: var(--primary-color);
+  font-size: 1.3rem;
+  font-weight: bold;
+}
+
+.nav-links {
+  display: flex;
+  list-style: none;
+}
+
+.nav-links li {
+  margin-left: 1.5rem;
+}
+
+.nav-links a {
+  color: var(--text-color);
+  text-decoration: none;
+  transition: color 0.3s;
+  font-size: 0.95rem;
+}
+
+.nav-links a:hover {
+  color: var(--primary-color);
+}
+
+.burger {
+  display: none;
+  cursor: pointer;
+}
+
+/* Sections */
+.section {
+  padding: 70px 0 40px;
+  min-height: auto;
+}
+
+.section h1,
+.section h2 {
+  color: var(--primary-color);
+  margin-bottom: 1.2rem;
+  text-align: center;
+  font-size: 1.8rem;
+}
+
+.section p {
+  margin-bottom: 1.2rem;
+  font-size: 0.95rem;
+}
+
+/* Home Section */
+.quick-links {
+  display: flex;
+  justify-content: center;
+  gap: 1.2rem;
+  margin-top: 1.5rem;
+}
+
+.btn {
+  display: inline-block;
+  padding: 0.8rem 1.5rem;
+  background-color: var(--primary-color);
+  color: var(--background-color);
+  text-decoration: none;
+  border-radius: 5px;
+  transition: transform 0.3s;
+  font-size: 0.9rem;
+}
+
+.btn:hover {
+  transform: translateY(-3px);
+}
+
+/* Price Section */
+.price-container {
+  background-color: var(--secondary-color);
+  padding: 1.5rem;
+  border-radius: 8px;
+  margin-top: 1.2rem;
+}
+
+.current-price {
+  font-size: 1.8rem;
+  text-align: center;
+  margin-bottom: 1.2rem;
+}
+
+.chart-container {
+  height: 300px;
+  margin-top: 1.2rem;
+}
+
+/* Calculator Section */
+.calculator {
+  background-color: var(--secondary-color);
+  padding: 1.5rem;
+  border-radius: 8px;
+  max-width: 500px;
+  margin: 0 auto;
+}
+
+.input-group {
+  margin-bottom: 1rem;
+}
+
+.input-group label {
+  display: block;
+  margin-bottom: 0.4rem;
+  font-size: 0.9rem;
+}
+
+.input-group input,
+.input-group select {
+  width: 100%;
+  padding: 0.6rem;
+  background-color: var(--accent-color);
+  border: none;
+  border-radius: 4px;
+  color: var(--text-color);
+  font-size: 0.9rem;
+}
+
+.results {
+  margin-top: 1.2rem;
+  padding: 0.8rem;
+  background-color: var(--accent-color);
+  border-radius: 4px;
+}
+
+.result-item {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 0.6rem;
+  font-size: 0.9rem;
+}
+
+/* News Section */
+.news-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 1.2rem;
+  margin-top: 1.2rem;
+}
+
+.news-item {
+  background-color: var(--secondary-color);
+  padding: 1.2rem;
+  border-radius: 8px;
+  transition: transform 0.3s;
+}
+
+.news-item:hover {
+  transform: translateY(-3px);
+}
+
+.news-item h3 {
+  color: var(--primary-color);
+  margin-bottom: 0.8rem;
+  font-size: 1.1rem;
+}
+
+.news-item p {
+  font-size: 0.9rem;
+  margin-bottom: 0.8rem;
+}
+
+.news-item .timestamp {
+  color: #888;
+  font-size: 0.8rem;
+  margin-top: 0.8rem;
+}
+
+.news-item .source {
+  color: #888;
+  font-size: 0.8rem;
+  margin-top: 0.5rem;
+  font-style: italic;
+}
+
+/* Footer */
+footer {
+  background-color: var(--secondary-color);
+  padding: 1.2rem 0;
+  text-align: center;
+  margin-top: 2rem;
+}
+
+footer p {
+  margin-bottom: 0.5rem;
+}
+
+footer a {
+  color: var(--primary-color);
+  text-decoration: none;
+  font-size: 0.9rem;
+}
+
+/* Responsive Design */
+@media screen and (max-width: 768px) {
+  .section {
+    padding: 60px 0 30px;
+  }
+
+  .section h1,
+  .section h2 {
+    font-size: 1.5rem;
+  }
+
+  .quick-links {
+    flex-direction: column;
+    align-items: center;
+    gap: 0.8rem;
+  }
+
+  .chart-container {
+    height: 250px;
+  }
+
+  .news-container {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* Animations */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.section {
+  animation: fadeIn 0.4s ease-out;
+}
