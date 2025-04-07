@@ -1,6 +1,26 @@
 <!DOCTYPE html>
 <html lang="en">
   <head>
+    <!-- Schema.org markup for Google+ -->
+    <script type="application/ld+json">
+      {
+        "@context": "https://schema.org",
+        "@type": "FinancialService",
+        "name": "Gold Trading Platform - Real-time Gold Prices & CFD Calculators",
+        "description": "Real-time gold prices, CFD trading calculators, and market insights. Calculate profit, loss, and margin requirements for gold CFD trading.",
+        "url": "https://tradinggolds.com",
+        "logo": "https://tradinggolds.com/logo.png",
+        "offers": {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Gold Trading Platform - Real-time Gold Prices & CFD Calculators",
+            "description": "Real-time gold prices, CFD trading calculators, and market insights. Calculate profit, loss, and margin requirements for gold CFD trading."
+          }
+        }
+      }
+    </script>
+
     <!-- Google Tag Manager -->
     <script>
       (function (w, d, s, l, i) {
@@ -12,20 +32,24 @@
         j.async = true;
         j.src = "https://www.googletagmanager.com/gtm.js?id=" + i + dl;
         f.parentNode.insertBefore(j, f);
-      })(window, document, "script", "dataLayer", "GTM-N4N6SVDT");
+      })(window, document, "script", "dataLayer", "GTM-XXXXXXX");
     </script>
     <!-- End Google Tag Manager -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <meta
       name="description"
-      content="Discover daily gold CFD trading tools, including live prices, profit calculators, and margin calculators, to seize trading opportunities. Explore TradinGolds.com now!"
+      content="Real-time gold prices, CFD trading calculators, and market insights. Calculate profit, loss, and margin requirements for gold CFD trading."
     />
     <meta
       name="keywords"
       content="trading gold, gold CFD trading, live gold prices, CFD profit calculator, margin calculator, day trading tools, TradinGolds"
     />
-    <title>Daily Gold CFD Trading Tools & Live Prices - TradinGolds</title>
+    <title>
+      Gold Trading Platform - Real-time Gold Prices & CFD Calculators
+    </title>
+    <!-- Favicon -->
+    <link rel="icon" type="image/png" href="logo.png" />
     <link rel="stylesheet" href="styles.css" />
     <link
       rel="stylesheet"
@@ -60,12 +84,12 @@
     <main>
       <section id="home" class="section">
         <div class="container">
-          <h1>Welcome to Gold CFD Trader Hub</h1>
-          <p id="prices">
-            Your daily resource for gold CFD trading tools and insights
+          <h1>Gold Trading Platform</h1>
+          <p class="description">
+            Real-time gold prices, trading tools, and market insights
           </p>
           <div class="price-container">
-            <h2>Live Gold Price</h2>
+            <h2>Current Gold Price</h2>
             <div class="trade-buttons">
               <a
                 href="https://mcmarkets.com/en-US/backend/tradeCenter?name=XAUUSD&symbolId=XAUUSD&tradeType=1&handleType=buy&utm_source=tradinggolds.com&utm_medium=referral&utm_campaign=buy_btn"
@@ -81,8 +105,8 @@
               >
             </div>
             <div class="current-price">
-              <span id="gold-price">Loading...</span>
-              <span id="price-change"></span>
+              <span id="gold-price">$2,034.50</span>
+              <span id="price-change">+0.25%</span>
               <div class="price-update-indicator">Live</div>
             </div>
             <div class="chart-container">
@@ -97,8 +121,8 @@
         <div class="container">
           <h2>CFD Trading Calculator</h2>
           <p class="calculator-description">
-            Calculate your CFD profit, loss, and margin requirement for both
-            long and short positions
+            Calculate CFD profit, loss, and margin requirements for both long
+            and short positions
           </p>
           <div class="calculator-tabs">
             <button class="tab-btn active" data-tab="profit">
@@ -109,21 +133,25 @@
             </button>
           </div>
           <div class="calculator-wrapper">
-            <div class="calculator active" id="profit-calculator">
+            <div id="profit-calculator" class="calculator active">
               <div class="calculator-header">
                 <h3>CFD Profit Calculator</h3>
                 <div class="info-tooltip">
                   <i class="fas fa-info-circle"></i>
                   <div class="tooltip-content">
-                    <h4>How to use the CFD Profit Calculator:</h4>
+                    <h4>How to Use This Calculator</h4>
                     <ol>
-                      <li>Select your position direction (long or short)</li>
-                      <li>Enter your Entry Price</li>
-                      <li>Enter your Exit Price</li>
-                      <li>Add your Margin Requirement</li>
-                      <li>Select the Leverage Ratio</li>
-                      <li>Click Calculate</li>
+                      <li>Select your position type (Long or Short)</li>
+                      <li>Enter your entry and exit prices</li>
+                      <li>Input your margin requirement</li>
+                      <li>Select your leverage ratio</li>
+                      <li>
+                        Click "Calculate" to see your potential profit/loss
+                      </li>
                     </ol>
+                    <p class="note">
+                      Note: This calculator is for educational purposes only.
+                    </p>
                   </div>
                 </div>
               </div>
@@ -161,18 +189,21 @@
               </div>
             </div>
 
-            <div class="calculator" id="margin-calculator">
+            <div id="margin-calculator" class="calculator">
               <div class="calculator-header">
                 <h3>CFD Margin Calculator</h3>
                 <div class="info-tooltip">
                   <i class="fas fa-info-circle"></i>
                   <div class="tooltip-content">
-                    <h4>How to use the CFD Margin Calculator:</h4>
+                    <h4>How to Use This Calculator</h4>
                     <ol>
-                      <li>Enter the Position Size</li>
-                      <li>Choose your Leverage Ratio</li>
-                      <li>Click Calculate</li>
+                      <li>Enter your desired position size</li>
+                      <li>Select your leverage ratio</li>
+                      <li>Click "Calculate" to see the required margin</li>
                     </ol>
+                    <p class="note">
+                      Note: This calculator is for educational purposes only.
+                    </p>
                   </div>
                 </div>
               </div>
@@ -201,12 +232,11 @@
 
     <footer>
       <div class="container">
-        <p>&copy; 2025 TradinGolds.com</p>
-        <a
-          href="https://www.mcmarkets.com/en-US/support?utm_source=tradinggolds.com&utm_medium=referral&utm_campaign=contact_btn"
-          target="_blank"
-          >Contact Us</a
-        >
+        <p>&copy; 2024 Gold Trading Platform. All rights reserved.</p>
+        <p>
+          <a href="#">Privacy Policy</a> | <a href="#">Terms of Service</a> |
+          <a href="#">Contact Us</a>
+        </p>
       </div>
     </footer>
 

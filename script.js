@@ -233,11 +233,29 @@ function updateChart(historicalData) {
   });
 }
 
-// Initialize price updates
+// Initialize price updates with lazy loading
 document.addEventListener("DOMContentLoaded", async () => {
-  // Initial price update
-  await updateGoldPrice();
+  // Create Intersection Observer for lazy loading
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) {
+          // Start price updates when chart is visible
+          updateGoldPrice();
+          setInterval(updateGoldPrice, 60000);
+          observer.unobserve(entry.target);
+        }
+      });
+    },
+    {
+      rootMargin: "50px 0px",
+      threshold: 0.1,
+    }
+  );
 
-  // Update price every minute
-  setInterval(updateGoldPrice, 60000);
+  // Observe the chart container
+  const chartContainer = document.querySelector(".chart-container");
+  if (chartContainer) {
+    observer.observe(chartContainer);
+  }
 });
