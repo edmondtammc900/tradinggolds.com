@@ -5,13 +5,40 @@ const NEWS_API_KEY = "3d7fb2fdb06d49b3aeebb560c983273a";
 const goldPriceElement = document.getElementById("gold-price");
 const priceChangeElement = document.getElementById("price-change");
 const priceChart = document.getElementById("priceChart");
-const tradeSizeInput = document.getElementById("trade-size");
-const leverageInput = document.getElementById("leverage");
-const accountCurrencySelect = document.getElementById("account-currency");
-const marginRequiredElement = document.getElementById("margin-required");
-const potentialPLElement = document.getElementById("potential-pl");
 const burger = document.querySelector(".burger");
 const navLinks = document.querySelector(".nav-links");
+
+// CFD Calculator Elements
+const positionType = document.getElementById("position-type");
+const entryPrice = document.getElementById("entry-price");
+const exitPrice = document.getElementById("exit-price");
+const marginRequirement = document.getElementById("margin-requirement");
+const leverageRatio = document.getElementById("leverage-ratio");
+const calculateProfitBtn = document.getElementById("calculate-profit");
+const profitResult = document.getElementById("profit-result");
+
+const positionSize = document.getElementById("position-size");
+const marginLeverage = document.getElementById("margin-leverage");
+const calculateMarginBtn = document.getElementById("calculate-margin");
+const marginResult = document.getElementById("margin-result");
+
+// Tab Elements
+const tabButtons = document.querySelectorAll(".tab-btn");
+const calculators = document.querySelectorAll(".calculator");
+
+// Tab Switching
+tabButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    // Remove active class from all buttons and calculators
+    tabButtons.forEach((btn) => btn.classList.remove("active"));
+    calculators.forEach((calc) => calc.classList.remove("active"));
+
+    // Add active class to clicked button and corresponding calculator
+    button.classList.add("active");
+    const tabId = button.getAttribute("data-tab");
+    document.getElementById(`${tabId}-calculator`).classList.add("active");
+  });
+});
 
 // Mobile Navigation
 burger.addEventListener("click", () => {
@@ -30,6 +57,44 @@ document.querySelectorAll(".nav-links a").forEach((link) => {
     document.body.style.overflow = "";
   });
 });
+
+// CFD Profit Calculator
+function calculateProfit() {
+  const isLong = positionType.value === "long";
+  const entry = parseFloat(entryPrice.value);
+  const exit = parseFloat(exitPrice.value);
+  const margin = parseFloat(marginRequirement.value);
+  const leverage = parseFloat(leverageRatio.value);
+
+  if (isNaN(entry) || isNaN(exit) || isNaN(margin) || isNaN(leverage)) {
+    profitResult.textContent = "Please enter valid numbers";
+    return;
+  }
+
+  const priceDifference = isLong ? exit - entry : entry - exit;
+  const profit = (priceDifference * margin * leverage) / entry;
+  profitResult.textContent = `$${profit.toFixed(2)}`;
+  profitResult.style.color =
+    profit >= 0 ? "var(--success-color)" : "var(--error-color)";
+}
+
+// CFD Margin Calculator
+function calculateMargin() {
+  const size = parseFloat(positionSize.value);
+  const leverage = parseFloat(marginLeverage.value);
+
+  if (isNaN(size) || isNaN(leverage)) {
+    marginResult.textContent = "Please enter valid numbers";
+    return;
+  }
+
+  const margin = size / leverage;
+  marginResult.textContent = `$${margin.toFixed(2)}`;
+}
+
+// Event Listeners for CFD Calculators
+calculateProfitBtn.addEventListener("click", calculateProfit);
+calculateMarginBtn.addEventListener("click", calculateMargin);
 
 // Gold Price Chart
 let priceChartInstance = null;
@@ -168,49 +233,11 @@ function updateChart(historicalData) {
   });
 }
 
-// Trading Calculator
-function calculateMargin() {
-  const tradeSize = parseFloat(tradeSizeInput.value);
-  const leverage = parseFloat(leverageInput.value);
-  const accountCurrency = accountCurrencySelect.value;
-
-  if (isNaN(tradeSize) || isNaN(leverage)) return;
-
-  const currentPrice = parseFloat(
-    goldPriceElement.textContent.replace("$", "")
-  );
-  if (isNaN(currentPrice)) {
-    marginRequiredElement.textContent = "Price unavailable";
-    potentialPLElement.textContent = "Price unavailable";
-    return;
-  }
-
-  const marginRequired = (currentPrice * tradeSize) / leverage;
-
-  marginRequiredElement.textContent = `${accountCurrency} ${marginRequired.toFixed(
-    2
-  )}`;
-
-  // Calculate potential P/L for 1% move
-  const potentialPL = currentPrice * tradeSize * 0.01;
-  potentialPLElement.textContent = `${accountCurrency} ${potentialPL.toFixed(
-    2
-  )}`;
-}
-
-// Event Listeners
-tradeSizeInput.addEventListener("input", calculateMargin);
-leverageInput.addEventListener("input", calculateMargin);
-accountCurrencySelect.addEventListener("change", calculateMargin);
-
-// Initialize
+// Initialize price updates
 document.addEventListener("DOMContentLoaded", async () => {
   // Initial price update
   await updateGoldPrice();
 
   // Update price every minute
   setInterval(updateGoldPrice, 60000);
-
-  // Initial calculator update
-  calculateMargin();
 });
