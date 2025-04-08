@@ -3,4 +3,4 @@ Allow: /
 Disallow: /private/
 Disallow: /admin/
 
-Sitemap: https://yourwebsite.com/sitemap.xml 
+Sitemap: https://tradinggolds.com/sitemap.xml 
