@@ -342,3 +342,74 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 });
+
+// Market Insights functionality
+async function fetchMarketInsights() {
+  try {
+    const response = await fetch(
+      "https://mcgrp.app.n8n.cloud/webhook/rss-bitcoin-koers-dollar"
+    );
+    const text = await response.text();
+    const parser = new DOMParser();
+    const xmlDoc = parser.parseFromString(text, "text/xml");
+    const items = xmlDoc.getElementsByTagName("item");
+
+    const marketContainer = document.querySelector(".market-ticker-content");
+
+    // Clear existing market items
+    marketContainer.innerHTML = "";
+
+    // Add new market items
+    for (let i = 0; i < Math.min(items.length, 10); i++) {
+      const item = items[i];
+      const title = item.getElementsByTagName("title_EN")[0].textContent;
+      const link = item.getElementsByTagName("link")[0].textContent;
+
+      const marketItem = document.createElement("div");
+      marketItem.className = "market-item";
+
+      // Create favicon URL from the market link
+      const url = new URL(link);
+      const faviconUrl = `${url.origin}/favicon.ico`;
+
+      marketItem.innerHTML = `
+        <img src="${faviconUrl}" alt="Site favicon" class="market-favicon" onerror="this.src='https://www.google.com/favicon.ico'">
+        <h3>${title}</h3>
+        <a href="${link}" target="_blank" rel="noopener noreferrer">Read More</a>
+      `;
+
+      marketContainer.appendChild(marketItem);
+    }
+  } catch (error) {
+    console.error("Error fetching market insights:", error);
+    const marketContainer = document.querySelector(".market-ticker-content");
+    marketContainer.innerHTML =
+      '<div class="market-item">Failed to load market insights. Please try again later.</div>';
+  }
+}
+
+// Initialize market insights on page load
+document.addEventListener("DOMContentLoaded", () => {
+  fetchMarketInsights();
+  // Update market insights every 5 minutes
+  setInterval(fetchMarketInsights, 5 * 60 * 1000);
+});
+
+// Smooth scrolling for navigation links
+document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+  anchor.addEventListener("click", function (e) {
+    e.preventDefault();
+    const target = document.querySelector(this.getAttribute("href"));
+    if (target) {
+      target.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+      });
+      // Close mobile menu if open
+      if (navLinks.classList.contains("active")) {
+        navLinks.classList.remove("active");
+        burger.classList.remove("active");
+      }
+    }
+  });
+});
