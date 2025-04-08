@@ -379,6 +379,7 @@ body {
   max-width: 1200px;
   margin-left: auto;
   margin-right: auto;
+  animation: scaleIn 0.5s ease-out;
 }
 
 .price-container::before {
@@ -398,6 +399,7 @@ body {
   font-weight: 700;
   letter-spacing: -1px;
   position: relative;
+  animation: fadeIn 0.8s ease-out;
 }
 
 .price-update-indicator {
@@ -447,6 +449,7 @@ body {
   position: relative;
   overflow: hidden;
   width: 100%;
+  animation: fadeIn 1s ease-out;
 }
 
 .chart-container::after {
@@ -483,6 +486,7 @@ body {
   display: flex;
   align-items: center;
   gap: 0.5rem;
+  animation: fadeIn 0.5s ease-out;
 }
 
 .chart-update-indicator::before {
@@ -745,11 +749,12 @@ body {
   background-color: var(--secondary-color);
   padding: 1.2rem;
   border-radius: 8px;
-  transition: transform 0.3s;
+  transition: transform 0.3s ease;
+  animation: slideIn 0.6s ease-out;
 }
 
 .news-item:hover {
-  transform: translateY(-3px);
+  transform: translateY(-5px);
 }
 
 .news-item h3 {
@@ -774,6 +779,19 @@ body {
   font-size: 0.8rem;
   margin-top: 0.5rem;
   font-style: italic;
+}
+
+/* News item animations */
+.news-item:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.news-item:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.news-item:nth-child(3) {
+  animation-delay: 0.3s;
 }
 
 /* Footer */
@@ -860,8 +878,110 @@ footer a:hover {
   }
 }
 
+@keyframes slideIn {
+  from {
+    opacity: 0;
+    transform: translateX(-20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes scaleIn {
+  from {
+    opacity: 0;
+    transform: scale(0.95);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+
+/* Apply animations to elements */
 .section {
   animation: fadeIn 0.6s ease-out;
+}
+
+.price-container {
+  animation: scaleIn 0.5s ease-out;
+}
+
+.current-price {
+  animation: fadeIn 0.8s ease-out;
+}
+
+.chart-container {
+  animation: fadeIn 1s ease-out;
+}
+
+.news-item {
+  animation: slideIn 0.6s ease-out;
+  transition: transform 0.3s ease;
+}
+
+.news-item:hover {
+  transform: translateY(-5px);
+}
+
+/* News item animations */
+.news-item:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.news-item:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.news-item:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+/* Smooth transitions for interactive elements */
+.btn,
+.tab-btn,
+.refresh-btn {
+  transition: all 0.3s ease;
+}
+
+.btn:hover,
+.tab-btn:hover,
+.refresh-btn:hover {
+  transform: translateY(-2px);
+}
+
+/* Loading animation for refresh button */
+.refresh-btn.loading svg {
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Chart update indicator animation */
+.chart-update-indicator {
+  animation: fadeIn 0.5s ease-out;
+}
+
+/* Price change animation */
+#price-change {
+  transition: all 0.3s ease;
+}
+
+#price-change.positive {
+  animation: fadeIn 0.5s ease-out;
+}
+
+#price-change.negative {
+  animation: fadeIn 0.5s ease-out;
 }
 
 .trade-buttons {
