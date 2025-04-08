@@ -394,22 +394,3 @@ document.addEventListener("DOMContentLoaded", () => {
   // Update market insights every 5 minutes
   setInterval(fetchMarketInsights, 5 * 60 * 1000);
 });
-
-// Smooth scrolling for navigation links
-document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
-  anchor.addEventListener("click", function (e) {
-    e.preventDefault();
-    const target = document.querySelector(this.getAttribute("href"));
-    if (target) {
-      target.scrollIntoView({
-        behavior: "smooth",
-        block: "start",
-      });
-      // Close mobile menu if open
-      if (navLinks.classList.contains("active")) {
-        navLinks.classList.remove("active");
-        burger.classList.remove("active");
-      }
-    }
-  });
-});
