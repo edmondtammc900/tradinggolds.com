@@ -312,3 +312,33 @@ document.addEventListener("DOMContentLoaded", async () => {
     observer.observe(chartContainer);
   }
 });
+
+// Tooltip functionality
+document.addEventListener("DOMContentLoaded", function () {
+  const tooltips = document.querySelectorAll(".info-tooltip");
+
+  tooltips.forEach((tooltip) => {
+    tooltip.addEventListener("click", function (e) {
+      e.stopPropagation();
+
+      // Close all other tooltips
+      tooltips.forEach((t) => {
+        if (t !== tooltip) {
+          t.classList.remove("active");
+        }
+      });
+
+      // Toggle current tooltip
+      tooltip.classList.toggle("active");
+    });
+  });
+
+  // Close tooltip when clicking outside
+  document.addEventListener("click", function (e) {
+    if (!e.target.closest(".info-tooltip")) {
+      tooltips.forEach((tooltip) => {
+        tooltip.classList.remove("active");
+      });
+    }
+  });
+});
