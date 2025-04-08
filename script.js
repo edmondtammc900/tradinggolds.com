@@ -99,9 +99,16 @@ calculateMarginBtn.addEventListener("click", calculateMargin);
 // Gold Price Chart
 let priceChartInstance = null;
 let lastPrice = null;
+let isFirstLoad = true;
+
+// 存儲真實的價格歷史
+let priceHistory = [];
 
 async function fetchGoldPrice() {
   try {
+    goldPriceElement.textContent = "Loading...";
+    priceChangeElement.textContent = "";
+
     const response = await fetch("https://api.gold-api.com/price/XAU");
     if (!response.ok) {
       throw new Error(`HTTP error! status: ${response.status}`);
@@ -116,55 +123,92 @@ async function fetchGoldPrice() {
   }
 }
 
+async function fetchHistoricalData(currentPrice) {
+  try {
+    // 只返回當前價格點
+    return [
+      {
+        timestamp: new Date(),
+        price: currentPrice,
+      },
+    ];
+  } catch (error) {
+    console.error("Error generating historical data:", error);
+    return null;
+  }
+}
+
 async function updateGoldPrice() {
   const data = await fetchGoldPrice();
   if (data && data.price) {
-    const price = data.price;
+    const price = parseFloat(data.price);
 
     goldPriceElement.textContent = `$${price.toFixed(2)}`;
 
-    // Calculate price change if we have a previous price
     if (lastPrice !== null) {
-      const change = ((price - lastPrice) / lastPrice) * 100;
+      const previousPrice = parseFloat(lastPrice);
+
+      // 計算變動百分比
+      const change = ((price - previousPrice) / previousPrice) * 100;
+
+      // 在控制台輸出詳細的計算過程
+      console.log("Detailed Price Change Calculation:", {
+        currentPrice: price,
+        previousPrice: previousPrice,
+        difference: price - previousPrice,
+        changePercentage: change,
+        rawCalculation: `((${price} - ${previousPrice}) / ${previousPrice}) * 100 = ${change}`,
+      });
+
+      // 更新顯示
       priceChangeElement.textContent = `${
         change > 0 ? "+" : ""
-      }${change.toFixed(2)}%`;
+      }${change.toFixed(3)}%`;
       priceChangeElement.style.color =
         change >= 0 ? "var(--success-color)" : "var(--error-color)";
     }
 
     lastPrice = price;
 
-    // For historical data, we'll create a simple array of recent prices
-    const historicalData = [];
-    const now = new Date();
-    for (let i = 0; i < 24; i++) {
-      historicalData.push({
-        timestamp: new Date(now.getTime() - (23 - i) * 3600000),
-        price: price * (1 + (Math.random() - 0.5) * 0.01), // Simulated historical data
-      });
+    // 更新圖表數據
+    const historicalData = await fetchHistoricalData(price);
+    if (historicalData) {
+      updateChart(historicalData);
     }
-    updateChart(historicalData);
   }
 }
 
 function updateChart(historicalData) {
+  if (!historicalData) return;
+
+  // 將新數據點添加到歷史記錄
+  priceHistory.push(historicalData[0]);
+
+  // 只保留最近24小時的數據
+  const oneDayAgo = new Date().getTime() - 24 * 60 * 60 * 1000;
+  priceHistory = priceHistory.filter(
+    (point) => point.timestamp.getTime() > oneDayAgo
+  );
+
   const ctx = priceChart.getContext("2d");
 
   if (priceChartInstance) {
     priceChartInstance.destroy();
   }
 
+  const now = new Date();
+  const timeString = now.toLocaleTimeString();
+
   priceChartInstance = new Chart(ctx, {
     type: "line",
     data: {
-      labels: historicalData.map((item) =>
+      labels: priceHistory.map((item) =>
         new Date(item.timestamp).toLocaleTimeString()
       ),
       datasets: [
         {
-          label: "Gold Price (USD)",
-          data: historicalData.map((item) => item.price),
+          label: "Gold Price (USD) - Real-time Data",
+          data: priceHistory.map((item) => item.price),
           borderColor: "#FFD700",
           backgroundColor: "rgba(255, 215, 0, 0.2)",
           borderWidth: 2,
@@ -227,6 +271,15 @@ function updateChart(historicalData) {
           borderWidth: 1,
           padding: 10,
           displayColors: false,
+        },
+        subtitle: {
+          display: true,
+          text: `Last updated: ${timeString} (Updates every minute)`,
+          color: "#FFFFFF",
+          font: {
+            size: 12,
+            style: "italic",
+          },
         },
       },
     },
